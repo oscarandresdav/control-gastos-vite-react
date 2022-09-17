@@ -16,7 +16,7 @@ import IconoOcio from "./../img/icono_ocio.svg";
 import IconoSalud from "./../img/icono_salud.svg";
 import IconoSuscripciones from "./../img/icono_suscripciones.svg";
 
-const Gasto = ({ gasto }) => {
+const Gasto = ({ gasto, setEditarGasto }) => {
   const { categoria, nombre, cantidad, id, fecha } = gasto;
 
   const diccionarioIconos = {
@@ -31,7 +31,7 @@ const Gasto = ({ gasto }) => {
   
   const leadingActions = () => (
     <LeadingActions>
-      <SwipeAction onClick={() => console.log('editar')}>
+      <SwipeAction onClick={() => setEditarGasto(gasto)}>
         Editar
       </SwipeAction>
     </LeadingActions>

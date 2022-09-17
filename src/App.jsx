@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import ListadoGastos from "./components/ListadoGastos";
 import Modal from "./components/Modal";
@@ -12,6 +12,13 @@ function App() {
   const [animarModal, setAnimarModal] = useState(false);
 
   const [gastos, setGastos] = useState([]);
+  const [editarGasto, setEditarGasto] = useState({});
+
+  useEffect(() => {
+    if (Object.keys(editarGasto).length > 0) {
+      handleNuevoGasto();
+    }
+  }, [editarGasto]);
 
   const handleNuevoGasto = () => {
     setModal(true);
@@ -21,7 +28,7 @@ function App() {
     }, 500);
   };
 
-  const guardarGasto = gasto => {
+  const guardarGasto = (gasto) => {
     gasto.id = generarId();
     gasto.fecha = Date.now();
     setGastos([...gastos, gasto]);
@@ -31,10 +38,10 @@ function App() {
     setTimeout(() => {
       setModal(false);
     }, 500);
-  }
+  };
 
   return (
-    <div className={modal ? 'fijar' : ''}>
+    <div className={modal ? "fijar" : ""}>
       <Header
         gastos={gastos}
         presupuesto={presupuesto}
@@ -46,9 +53,7 @@ function App() {
       {isValidPresupuesto && (
         <>
           <main>
-            <ListadoGastos
-              gastos={gastos}
-            />
+            <ListadoGastos gastos={gastos} setEditarGasto={setEditarGasto} />
           </main>
           <div className="nuevo-gasto">
             <img
