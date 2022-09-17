@@ -29,17 +29,25 @@ const Gasto = ({ gasto }) => {
     suscripciones: IconoSuscripciones,
   };
   
-  const leadingActions = () => {
-    
-  }
-  const trailingActions = () => {
-
-  }
+  const leadingActions = () => (
+    <LeadingActions>
+      <SwipeAction onClick={() => console.log('editar')}>
+        Editar
+      </SwipeAction>
+    </LeadingActions>
+  )
+  const trailingActions = () => (
+    <TrailingActions>
+      <SwipeAction onClick={() => console.log('eliminar')}>
+        Eliminar
+      </SwipeAction>
+    </TrailingActions>
+  )
   return (
     <SwipeableList>
       <SwipeableListItem
-        leadingActions={leadingActions}
-        trailingActions={trailingActions}
+        leadingActions={leadingActions()}
+        trailingActions={trailingActions()}
       >
         <div className="gasto sombra">
           <div className="contenido-gasto">
