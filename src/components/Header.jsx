@@ -3,6 +3,7 @@ import ControPresupuesto from "./ControPresupuesto";
 import NuevoPresupuesto from "./NuevoPresupuesto";
 
 const Header = ({
+  gastos,
   presupuesto,
   setPresupuesto,
   isValidPresupuesto,
@@ -14,6 +15,7 @@ const Header = ({
 
       {isValidPresupuesto ? (
         <ControPresupuesto 
+          gastos={gastos}
           presupuesto={presupuesto}
         />
       ) : (
