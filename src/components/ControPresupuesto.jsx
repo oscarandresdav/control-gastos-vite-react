@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 import { formatearCantidad } from "../helpers";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 const ControPresupuesto = ({ gastos, presupuesto }) => {
   const [disponible, setDisponible] = useState(0);
   const [gastado, setGastado] = useState(0);
 
   useEffect(() => {
-    const totalGastado = gastos.reduce((total, gasto) => gasto.cantidad + total, 0);
+    const totalGastado = gastos.reduce(
+      (total, gasto) => gasto.cantidad + total,
+      0
+    );
     const totalDisponible = presupuesto - totalGastado;
-    
+
     setGastado(totalGastado);
     setDisponible(totalDisponible);
   }, [gastos]);
@@ -16,7 +21,9 @@ const ControPresupuesto = ({ gastos, presupuesto }) => {
   return (
     <div className="contenedor-presupuesto contenedor sombra dos-columnas">
       <div>
-        <p>Gráfica aquí</p>
+        <CircularProgressbar
+          value={50}
+        />
       </div>
       <div className="contenido-presupuesto">
         <p>
