@@ -16,7 +16,7 @@ import IconoOcio from "./../img/icono_ocio.svg";
 import IconoSalud from "./../img/icono_salud.svg";
 import IconoSuscripciones from "./../img/icono_suscripciones.svg";
 
-const Gasto = ({ gasto, setEditarGasto }) => {
+const Gasto = ({ gasto, setEditarGasto, eliminarGasto }) => {
   const { categoria, nombre, cantidad, id, fecha } = gasto;
 
   const diccionarioIconos = {
@@ -28,21 +28,19 @@ const Gasto = ({ gasto, setEditarGasto }) => {
     salud: IconoSalud,
     suscripciones: IconoSuscripciones,
   };
-  
+
   const leadingActions = () => (
     <LeadingActions>
-      <SwipeAction onClick={() => setEditarGasto(gasto)}>
-        Editar
-      </SwipeAction>
+      <SwipeAction onClick={() => setEditarGasto(gasto)}>Editar</SwipeAction>
     </LeadingActions>
-  )
+  );
   const trailingActions = () => (
     <TrailingActions>
-      <SwipeAction onClick={() => console.log('eliminar')}>
+      <SwipeAction onClick={() => eliminarGasto(id)} destructive={true}>
         Eliminar
       </SwipeAction>
     </TrailingActions>
-  )
+  );
   return (
     <SwipeableList>
       <SwipeableListItem
@@ -62,7 +60,6 @@ const Gasto = ({ gasto, setEditarGasto }) => {
           </div>
           <p className="cantidad-gasto">{formatearCantidad(cantidad)}</p>
         </div>
-
       </SwipeableListItem>
     </SwipeableList>
   );

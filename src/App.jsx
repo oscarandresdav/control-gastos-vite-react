@@ -42,6 +42,11 @@ function App() {
     ocultarModal();
   };
 
+  const eliminarGasto = (id) => {
+    const gastoActualizados = gastos.filter(gasto => gasto.id !== id);
+    setGastos(gastoActualizados);
+  };
+
   const mostrarModal = () => {
     setModal(true);
 
@@ -71,7 +76,11 @@ function App() {
       {isValidPresupuesto && (
         <>
           <main>
-            <ListadoGastos gastos={gastos} setEditarGasto={setEditarGasto} />
+            <ListadoGastos
+              gastos={gastos}
+              setEditarGasto={setEditarGasto}
+              eliminarGasto={eliminarGasto}
+            />
           </main>
           <div className="nuevo-gasto">
             <img
