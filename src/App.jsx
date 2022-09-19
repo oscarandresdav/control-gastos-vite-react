@@ -16,28 +16,41 @@ function App() {
 
   useEffect(() => {
     if (Object.keys(editarGasto).length > 0) {
-      abrirModal();
+      mostrarModal();
     }
   }, [editarGasto]);
 
   const handleNuevoGasto = () => {
-    abrirModal();
-    setEditarGasto({})
+    mostrarModal();
+    setEditarGasto({});
   };
 
-  const abrirModal = () => {
+  const guardarGasto = (gasto) => {
+    if (gasto.id) {
+      // Actualizar
+      const gastosActualizados = gastos.map((gastoState) =>
+        gastoState.id === gasto.id ? gasto : gastoState
+      );
+      setGastos(gastosActualizados);
+    } else {
+      // Nuevo
+      gasto.id = generarId();
+      gasto.fecha = Date.now();
+      setGastos([...gastos, gasto]);
+    }
+
+    ocultarModal();
+  };
+
+  const mostrarModal = () => {
     setModal(true);
 
     setTimeout(() => {
       setAnimarModal(true);
     }, 500);
-  }
+  };
 
-  const guardarGasto = (gasto) => {
-    gasto.id = generarId();
-    gasto.fecha = Date.now();
-    setGastos([...gastos, gasto]);
-
+  const ocultarModal = () => {
     setAnimarModal(false);
 
     setTimeout(() => {
