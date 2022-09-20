@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Filtros from "./components/Filtros";
 import Header from "./components/Header";
 import ListadoGastos from "./components/ListadoGastos";
 import Modal from "./components/Modal";
@@ -9,17 +10,18 @@ function App() {
   const [presupuesto, setPresupuesto] = useState(
     Number(localStorage.getItem("presupuesto")) ?? 0
   );
-  const [isValidPresupuesto, setIsValidPresupuesto] = useState(false);
-  const [modal, setModal] = useState(false);
-  const [animarModal, setAnimarModal] = useState(false);
-
   const [gastos, setGastos] = useState(
     localStorage.getItem("gastos")
       ? JSON.parse(localStorage.getItem("gastos"))
       : []
   );
-  // const [gastos, setGastos] = useState([]);
   const [editarGasto, setEditarGasto] = useState({});
+  const [isValidPresupuesto, setIsValidPresupuesto] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [animarModal, setAnimarModal] = useState(false);
+
+  const [filtro, setFiltro] = useState('');
+
 
   useEffect(() => {
     if (Object.keys(editarGasto).length > 0) {
@@ -33,8 +35,13 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("gastos", JSON.stringify(gastos) ?? []);
-    console.log(gastos);
   }, [gastos]);
+
+  useEffect(() => {
+    if (filtro) {
+      console.log('filtrando...', filtro);
+    }
+  }, [filtro])
 
   useEffect(() => {
     const presupuestoLS = Number(localStorage.getItem("presupuesto")) ?? 0;
@@ -101,6 +108,10 @@ function App() {
       {isValidPresupuesto && (
         <>
           <main>
+            <Filtros
+              filtro={filtro}
+              setFiltro={setFiltro}
+            />
             <ListadoGastos
               gastos={gastos}
               setEditarGasto={setEditarGasto}
