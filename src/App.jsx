@@ -21,6 +21,7 @@ function App() {
   const [animarModal, setAnimarModal] = useState(false);
 
   const [filtro, setFiltro] = useState('');
+  const [gastosFiltrados, setGastosFiltrados] = useState([]);
 
 
   useEffect(() => {
@@ -39,7 +40,8 @@ function App() {
 
   useEffect(() => {
     if (filtro) {
-      console.log('filtrando...', filtro);
+      const filtrados = gastos.filter(gasto => gasto.categoria === filtro);
+      setGastosFiltrados(filtrados);
     }
   }, [filtro])
 
