@@ -7,13 +7,18 @@ import IconoNuevoGasto from "./img/nuevo-gasto.svg";
 
 function App() {
   const [presupuesto, setPresupuesto] = useState(
-    Number(localStorage.getItem('presupuesto')) ?? 0
+    Number(localStorage.getItem("presupuesto")) ?? 0
   );
   const [isValidPresupuesto, setIsValidPresupuesto] = useState(false);
   const [modal, setModal] = useState(false);
   const [animarModal, setAnimarModal] = useState(false);
 
-  const [gastos, setGastos] = useState([]);
+  const [gastos, setGastos] = useState(
+    localStorage.getItem("gastos")
+      ? JSON.parse(localStorage.getItem("gastos"))
+      : []
+  );
+  // const [gastos, setGastos] = useState([]);
   const [editarGasto, setEditarGasto] = useState({});
 
   useEffect(() => {
@@ -23,11 +28,16 @@ function App() {
   }, [editarGasto]);
 
   useEffect(() => {
-    localStorage.setItem('presupuesto', presupuesto ?? 0);
+    localStorage.setItem("presupuesto", presupuesto ?? 0);
   }, [presupuesto]);
 
   useEffect(() => {
-    const presupuestoLS = Number(localStorage.getItem('presupuesto')) ?? 0;
+    localStorage.setItem("gastos", JSON.stringify(gastos) ?? []);
+    console.log(gastos);
+  }, [gastos]);
+
+  useEffect(() => {
+    const presupuestoLS = Number(localStorage.getItem("presupuesto")) ?? 0;
 
     if (presupuestoLS > 0) {
       setIsValidPresupuesto(true);

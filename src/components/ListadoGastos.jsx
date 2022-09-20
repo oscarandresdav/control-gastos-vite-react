@@ -1,4 +1,3 @@
-import React from "react";
 import Gasto from "./Gasto";
 
 const ListadoGastos = ({ gastos, setEditarGasto, eliminarGasto }) => {
